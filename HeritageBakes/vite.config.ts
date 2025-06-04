@@ -94,13 +94,14 @@ const pwaOptions: Partial<VitePWAOptions> = {
 export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
-    VitePWA({
-      ...pwaOptions,
-      strategies: 'injectManifest',
-      injectManifest: {
-        swSrc: 'src/serviceWorker.ts', // Path relative to Vite root (client/)
-      },
-    }),
+    // Temporarily disabled VitePWA to troubleshoot service worker build issue
+    // VitePWA({
+    //   ...pwaOptions,
+    //   strategies: 'injectManifest',
+    //   injectManifest: {
+    //     swSrc: 'src/serviceWorker.ts', // Path relative to Vite root (client/)
+    //   },
+    // }),
   ],
   resolve: {
     alias: {
