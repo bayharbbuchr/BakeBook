@@ -97,9 +97,10 @@ export default defineConfig(({ mode }) => ({
     VitePWA({
       ...pwaOptions,
       strategies: 'injectManifest',
+      srcDir: '../client/src',
+      filename: 'serviceWorker.ts',
       injectManifest: {
-        swSrc: '../client/src/serviceWorker.ts', // Path relative to vite.config.ts
-        swDest: 'sw.js', // This will place sw.js in the build.outDir (HeritageBakes/dist/public)
+        swDest: 'sw.js',
       },
     }),
   ],
