@@ -112,13 +112,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const recipe = await storage.createRecipe(validatedData, req.user.id);
       
       res.status(201).json(recipe);
-    } catch (error) {
-      console.error('Recipe creation error:', error);
-      if (error.name === 'ZodError') {
-        return res.status(400).json({ 
-          message: "Invalid recipe data", 
-          errors: error.errors 
-        });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('Recipe creation error:', error);
+        if (error.name === 'ZodError') {
+          return res.status(400).json({ 
+            message: "Invalid recipe data", 
+            errors: (error as import('zod').ZodError).errors 
+          });
+        }
       }
       res.status(500).json({ message: "Failed to create recipe" });
     }
@@ -165,7 +167,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: unknown) {
       if (error instanceof Error) {
         if ('name' in error && error.name === 'ZodError') {
-          const zodError = error as z.ZodError;
+          const zodError = error as import('zod').ZodError;
           return res.status(400).json({ 
             message: "Invalid recipe data", 
             errors: zodError.errors 
@@ -216,7 +218,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const query = req.params.query;
       const recipes = await storage.searchRecipes(query);
       res.json(recipes);
-    } catch (error) {
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('Error searching recipes:', error.message);
+      } else {
+        console.error('Unknown error searching recipes');
+      }
       res.status(500).json({ message: "Failed to search recipes" });
     }
   });
@@ -232,7 +239,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const recipes = await storage.getRecipesByTags(tags);
       res.json(recipes);
-    } catch (error) {
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('Error filtering recipes by tags:', error.message);
+      } else {
+        console.error('Unknown error filtering recipes by tags');
+      }
       res.status(500).json({ message: "Failed to filter recipes" });
     }
   });
