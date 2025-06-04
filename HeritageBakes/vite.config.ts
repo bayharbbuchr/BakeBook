@@ -110,7 +110,7 @@ export default defineConfig(({ mode }) => ({
       "@assets": path.resolve(import.meta.dirname, "attached_assets"),
     },
   },
-  root: path.resolve(import.meta.dirname, "client"), // Vite project root is 'client/'
+  root: path.resolve(import.meta.dirname, "../client"), // Corrected Vite project root to point to the sibling 'client/' directory
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
