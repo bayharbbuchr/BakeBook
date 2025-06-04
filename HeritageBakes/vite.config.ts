@@ -98,7 +98,7 @@ export default defineConfig(({ mode }) => ({
       ...pwaOptions,
       strategies: 'injectManifest',
       injectManifest: {
-        swSrc: 'src/serviceWorker.ts', // Path relative to Vite root (client/)
+        swSrc: '../client/src/serviceWorker.ts', // Path relative to vite.config.ts
       },
     }),
   ],
