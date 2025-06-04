@@ -90,7 +90,7 @@ const pwaOptions: Partial<VitePWAOptions> = {
   },
   registerType: 'autoUpdate',
   strategies: 'injectManifest',
-  srcDir: 'src',
+  srcDir: 'client/src',
   filename: 'serviceWorker.ts'
 };
 
@@ -99,11 +99,6 @@ export default defineConfig(({ mode }) => ({
     react(),
     VitePWA({
       ...pwaOptions,
-      devOptions: {
-        enabled: true,
-        type: 'module',
-        navigateFallback: 'index.html',
-      },
     }),
   ],
   resolve: {
