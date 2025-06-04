@@ -105,11 +105,15 @@ export default defineConfig(({ mode }) => ({
       "@shared": path.resolve(import.meta.dirname, "shared"),
       "@assets": path.resolve(import.meta.dirname, "attached_assets"),
     },
+    preserveSymlinks: true,
   },
   root: path.resolve(import.meta.dirname, "../client"), // Vite project root is 'client/'
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      external: ['react/jsx-runtime'],
+    },
   },
   publicDir: false, // Explicitly disable public directory processing to avoid conflicts with service worker path resolution
 }));
