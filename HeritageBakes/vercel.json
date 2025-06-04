@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "HeritageBakes/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist",
+        "installCommand": "cd HeritageBakes && npm install",
+        "buildCommand": "cd HeritageBakes && npm run build"
+      }
+    }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/HeritageBakes/$1" },
+    { "src": "/HeritageBakes/(.*)", "dest": "/HeritageBakes/index.html" }
+  ]
+}

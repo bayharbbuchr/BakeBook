@@ -95,11 +95,18 @@ const pwaOptions: Partial<VitePWAOptions> = {
   filename: 'serviceWorker.ts'
 };
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
+    VitePWA({
+      ...pwaOptions,
+      devOptions: {
+        enabled: true,
+        type: 'module',
+        navigateFallback: 'index.html',
+      },
+    }),
     runtimeErrorOverlay(),
-    VitePWA(pwaOptions),
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [
