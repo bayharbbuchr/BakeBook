@@ -3,10 +3,10 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import { VitePWA } from 'vite-plugin-pwa';
 
-// PWA configuration
+// PWA configuration - This will only contain general PWA options, not strategy-specific ones
 import type { VitePWAOptions } from 'vite-plugin-pwa';
 
-const pwaOptions: Partial<VitePWAOptions> = {
+const generalPwaOptions: Partial<VitePWAOptions> = {
   includeAssets: [
     'favicon.ico',
     'apple-touch-icon.png',
@@ -95,13 +95,8 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     VitePWA({
-      ...pwaOptions,
-      strategies: 'injectManifest',
-      srcDir: '../client/src',
-      filename: 'serviceWorker.ts',
-      injectManifest: {
-        swDest: 'sw.js',
-      },
+      strategies: 'generateSW',
+      ...generalPwaOptions,
     }),
   ],
   resolve: {
@@ -111,9 +106,10 @@ export default defineConfig(({ mode }) => ({
       "@assets": path.resolve(import.meta.dirname, "attached_assets"),
     },
   },
-  root: path.resolve(import.meta.dirname, "../client"), // Corrected Vite project root to point to the sibling 'client/' directory
+  root: path.resolve(import.meta.dirname, "../client"), // Vite project root is 'client/'
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
   },
+  publicDir: false, // Explicitly disable public directory processing to avoid conflicts with service worker path resolution
 }));
