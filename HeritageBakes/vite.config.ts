@@ -99,6 +99,7 @@ export default defineConfig(({ mode }) => ({
       strategies: 'injectManifest',
       injectManifest: {
         swSrc: '../client/src/serviceWorker.ts', // Path relative to vite.config.ts
+        swDest: 'sw.js', // This will place sw.js in the build.outDir (HeritageBakes/dist/public)
       },
     }),
   ],
