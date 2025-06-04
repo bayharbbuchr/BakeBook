@@ -1,0 +1,12 @@
+{
+  "name": "bakebook-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "HeritageBakes",
+    "client"
+  ],
+  "scripts": {
+    "install:all": "npm install"
+  }
+} 
