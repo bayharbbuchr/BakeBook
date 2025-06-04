@@ -89,9 +89,6 @@ const pwaOptions: Partial<VitePWAOptions> = {
     suppressWarnings: true
   },
   registerType: 'autoUpdate',
-  strategies: 'injectManifest',
-  srcDir: 'client/src',
-  filename: 'serviceWorker.ts'
 };
 
 export default defineConfig(({ mode }) => ({
@@ -99,6 +96,10 @@ export default defineConfig(({ mode }) => ({
     react(),
     VitePWA({
       ...pwaOptions,
+      strategies: 'injectManifest',
+      injectManifest: {
+        swSrc: 'src/serviceWorker.ts', // Path relative to Vite root (client/)
+      },
     }),
   ],
   resolve: {
